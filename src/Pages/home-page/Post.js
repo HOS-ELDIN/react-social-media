@@ -1,6 +1,4 @@
 //  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-
 import React, { useEffect, useState } from "react";
 import {
 	collection,
@@ -16,6 +14,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
 // ! add delete post
+
+//HOS-ELDIN/react-social-media
 
 const Post = ({ post }) => {
 	const navigate = useNavigate();

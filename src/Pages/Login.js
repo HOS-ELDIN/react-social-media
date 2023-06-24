@@ -4,13 +4,12 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+	const navigate = useNavigate();
 
-	const navigate = useNavigate()
-	
 	const signInWithGoogle = async () => {
 		const result = await signInWithPopup(auth, provider);
-		// console.log(result);
-		navigate("/")
+		console.log(result);
+		navigate("/");
 	};
 	return (
 		<div>

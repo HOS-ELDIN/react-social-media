@@ -11,14 +11,14 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 // ! add delete post
 
 //HOS-ELDIN/react-social-media
 
 const Post = ({ post, getPosts }) => {
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const [likes, setLikes] = useState([]);
 

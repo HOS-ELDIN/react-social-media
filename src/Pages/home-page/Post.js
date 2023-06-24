@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 //HOS-ELDIN/react-social-media
 
-const Post = ({ post }) => {
+const Post = ({ post, getPosts }) => {
 	const navigate = useNavigate();
 
 	const [likes, setLikes] = useState([]);
@@ -44,15 +44,18 @@ const Post = ({ post }) => {
 	}, []);
 
 	const addLike = async () => {
-		try {
-			const newDoc = await addDoc(likesRef, {
-				username: user?.displayName,
-				userId: user?.uid,
-				postId: post.id,
-			});
-			setLikes((prev) => [...prev, { userId: user?.uid, likeId: newDoc.id }]);
-		} catch (error) {
-			console.log(error);
+		if (!hasUserLiked) {
+			try {
+				const newDoc = await addDoc(likesRef, {
+					username: user?.displayName,
+					userId: user?.uid,
+					postId: post.id,
+				});
+				setLikes((prev) => [...prev, { userId: user?.uid, likeId: newDoc.id }]);
+				// console.log(post);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	};
 
@@ -77,10 +80,10 @@ const Post = ({ post }) => {
 
 	const deletePost = async () => {
 		const postId = post.id;
-		console.log(postId);
+		console.log(post);
 		const postToDelete = doc(db, "posts", postId);
 		await deleteDoc(postToDelete);
-		navigate("/");
+		getPosts();
 	};
 
 	return (
@@ -95,21 +98,22 @@ const Post = ({ post }) => {
 				<div>
 					<button
 						className="like-button"
-						onClick={hasUserLiked ? console.log("clicked") : addLike}
+						onClick={addLike}
 						style={hasUserLiked && { backgroundColor: "coral" }}
 					>
 						&#128077;
 					</button>
 					<span>{likes?.length}</span>
 					<button className="unlike-button" onClick={removeLike}>
-						{" "}
-						&#128078;{" "}
+						&#128078;
 					</button>
 				</div>
 				<p>@{post.username}</p>
-				<button className="delete-button" onClick={deletePost}>
-					&#10008;
-				</button>
+				{post?.userId === user?.uid && (
+					<button className="delete-button" onClick={deletePost}>
+						&#10008;
+					</button>
+				)}
 			</div>
 		</div>
 	);

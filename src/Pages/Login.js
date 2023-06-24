@@ -9,7 +9,7 @@ function Login() {
 	
 	const signInWithGoogle = async () => {
 		const result = await signInWithPopup(auth, provider);
-		console.log(result);
+		// console.log(result);
 		navigate("/")
 	};
 	return (

@@ -6,10 +6,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+// import { useRef } from "react";
 
 const CreateForm = () => {
 	const [user] = useAuthState(auth);
 	const navigate = useNavigate();
+
+	// const titleInputRef = useRef();
 
 	const schema = yup.object().shape({
 		title: yup.string().required("pls add a title."),
@@ -37,7 +40,13 @@ const CreateForm = () => {
 
 	return (
 		<form className="new-post-form" onSubmit={handleSubmit(onCreatePost)}>
-			<input type="text" placeholder="Title..." {...register("title")} />
+			<input
+				type="text"
+				placeholder="Title..."
+				{...register("title")}
+				// ref={titleInputRef}
+				autoFocus
+			/>
 			<p>{errors.title?.message}</p>
 			<textarea
 				id=""

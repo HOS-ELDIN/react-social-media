@@ -20,7 +20,7 @@ function Home() {
 	return (
 		<div className="home">
 			{postsList?.map((listItem) => (
-				<Post key={listItem.id} post={listItem} />
+				<Post key={listItem.id} post={listItem} getPosts={getPosts} />
 			))}
 		</div>
 	);
